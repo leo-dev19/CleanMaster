@@ -7,14 +7,14 @@ class UsuariosViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var btnBuscar: UIButton!
     @IBOutlet weak var btnRegresar: UIButton!
     @IBOutlet weak var txtBuscar: UITextField!
-    var usuarios: [Usuario]!
+    //var usuarios: [BEUsuario]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         usuariosTb.delegate = self
         usuariosTb.dataSource = self
         
-        cargarUsuarios()
+        //cargarUsuarios()
     }
     
     @IBAction func btnBuscarUsuario(_ sender: UIButton){
@@ -25,18 +25,18 @@ class UsuariosViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return usuarios.count
+        return 0//usuarios.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let celda = tableView.dequeueReusableCell(withIdentifier: "celdaUsuario") as! UsuarioTableViewCell
-        let usuario = usuarios[indexPath.row];
+        /*let usuario = usuarios[indexPath.row];
         celda.lblID.text = "\(usuario.id)"
         celda.lblDNI.text = usuario.dni
-        celda.lblNombreCompleto.text = "\(usuario.apellido ?? ""), \(usuario.nombre ?? "")"
+        celda.lblNombreCompleto.text = "\(usuario.apellido ?? ""), \(usuario.nombre ?? "")"*/
         return celda
     }
-    
+    /*
     func cargarUsuarios(){
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let request: NSFetchRequest<Usuario> = Usuario.fetchRequest()
@@ -44,5 +44,5 @@ class UsuariosViewController: UIViewController, UITableViewDelegate, UITableView
             usuarios = try context.fetch(request)
             usuariosTb.reloadData()
         } catch { print("No se pudo cargar la base de datos, vuelva a intentarlo")}
-    }
+    }*/
 }

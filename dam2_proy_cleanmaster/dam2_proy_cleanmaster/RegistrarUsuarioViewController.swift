@@ -9,6 +9,7 @@ class RegistrarUsuarioViewController: UIViewController {
     @IBOutlet weak var txtDNI: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var btnRegistrarse: UIButton!
+    @IBOutlet weak var btnIniciarSesion: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,20 +28,26 @@ class RegistrarUsuarioViewController: UIViewController {
             return
         }
         
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext;
+        /*let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext;
         let usuario = Usuario(context: context)
         usuario.nombre = nombre
         usuario.apellido = apellido
         usuario.email = email
         usuario.dni = dni
-        usuario.password = password
+        usuario.password = password*/
         
-        do {
-            try context.save()
+        /*do {
+            try /*context.save()*/
             Utiles.limpiarCampos(campos: camposTxt)
             Utiles.mostrarMensaje(controller: self, "Limpio", "Campos limpios")
         } catch {
             Utiles.mostrarMensaje(controller: self, "Hubo un error", "No se pudo realizar la accion")
-        }
+        }*/
+        Utiles.limpiarCampos(campos: camposTxt)
+        Utiles.mostrarMensaje(controller: self, "Limpio", "Campos limpios")
+    }
+    
+    @IBAction func btnIniciarSesionTap(_ sender: UIButton){
+        Utiles.cambiarVista(controller: self, controllerName: "IniciarSesion")
     }
 }

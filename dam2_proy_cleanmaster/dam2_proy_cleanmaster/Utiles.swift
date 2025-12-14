@@ -15,10 +15,23 @@ class Utiles {
         }
     }
     
-    static func mostrarMensaje(controller: UIViewController, _ titulo: String, _ mensaje: String){
+    static func mostrarMensaje(controller: UIViewController, _ titulo: String, _ mensaje: String, acciones: [UIAlertAction]){
         let alerta = UIAlertController(title: titulo, message: mensaje, preferredStyle: .alert)
-        alerta.addAction(UIAlertAction(title: "ACEPTAR", style: .default))
+        
+        if(!acciones.isEmpty) {
+            for accione in acciones {
+                alerta.addAction(accione)
+            }
+        }else{
+            alerta.addAction(UIAlertAction(title: "ACEPTAR", style: .default))
+        }
+        
         controller.present(alerta, animated: true)
+    }
+    
+    static func mostrarMensaje(controller: UIViewController, _ titulo: String, _ mensaje: String){
+        let acciones: [UIAlertAction] = []
+        mostrarMensaje(controller: controller, titulo, mensaje, acciones: acciones)
     }
     
     static func cambiarVista(controller: UIViewController, controllerName: String){
@@ -26,5 +39,14 @@ class Utiles {
         let viewController = board.instantiateViewController(identifier: controllerName)
         viewController.modalPresentationStyle = .fullScreen
         controller.present(viewController, animated: true)
+    }
+    
+    static func cambiarVista(controller: UIViewController, controllerTo: UIViewController){
+        controllerTo.modalPresentationStyle = .fullScreen
+        controller.present(controllerTo, animated: true)
+    }
+    
+    static func cerrarSesion(controller: UIViewController){
+        cambiarVista(controller: controller, controllerName: "IniciarSesion")
     }
 }
