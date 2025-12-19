@@ -1,5 +1,6 @@
 import UIKit
 
+
 class Utiles {
     static func validarCampos(campos: [UITextField]) -> Bool{
         for campo in campos {
@@ -49,4 +50,5 @@ class Utiles {
     static func cerrarSesion(controller: UIViewController){
         cambiarVista(controller: controller, controllerName: "IniciarSesion")
     }
+    
 }

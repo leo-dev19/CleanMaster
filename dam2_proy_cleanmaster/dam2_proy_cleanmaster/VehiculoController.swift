@@ -3,13 +3,25 @@ import UIKit
 class VehiculoController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var btnRegresar: UIButton!
     @IBOutlet weak var tbVehiculos: UITableView!
-    var quotes = [Quote]()
+    var vehiculos = [BEVehiculo]()
+    var service = VehiculoService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tbVehiculos.delegate = self
+        tbVehiculos.dataSource = self
+        obtenerVehiculos()
     }
     
     func obtenerVehiculos(){
+        DispatchQueue.main.async {
+            self.service.listar().forEach{ vehiculo in
+                print("\(vehiculo.id ?? "") \(vehiculo.placa) \(vehiculo.marca)")
+            }
+            self.vehiculos = self.service.listar()
+            self.tbVehiculos.reloadData()
+        }
+        /*
         let url = URL(string: "https://dummyjson.com/quotes")!
         let task = URLSession.shared.dataTask(with: url) {
             (data, response, error) in
@@ -29,15 +41,26 @@ class VehiculoController: UIViewController, UITableViewDelegate, UITableViewData
                 print("Error al obtener datos", error)
             }
         }
-        task.resume()
+        task.resume()*/
+        /* //Esto lo ejecuta en otro hilo
+         DispatchQueue.global(qos: .background).async {
+            for _ in 1...10 {
+                print("Tarea 1")
+                sleep(1)
+            }
+         }
+         */
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0//usuarios.count
+        return vehiculos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let celda = tableView.dequeueReusableCell(withIdentifier: "celdaVehiculo") as! UsuarioTableViewCell
+        let celda = tableView.dequeueReusableCell(withIdentifier: "celdaVehiculo") as! VehiculoCeldaTabla
+        let quote = vehiculos[indexPath.row];
+        celda.lblModelo.text = quote.modelo
+        celda.lblPlaca.text = quote.placa
         return celda
     }
 

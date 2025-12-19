@@ -13,12 +13,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnIniciar(_ sender: UIButton){
+        let usuarioS = UsuarioService()
+        usuarioS.listar().forEach { print($0.nombre) }
+        
         if  !Utiles.validarCampos(campos: camposTxt) {
             Utiles.mostrarMensaje(controller: self, "Error: Al ingresar datos", "Los campos no tienen datos validos.")
             return
         }
         
-        Utiles.cambiarVista(controller: self, controllerName: "Principal")
+        Utiles.cambiarVista(controller: self, controllerName: "ClienteVehiculos")//"Principal")
     }
 
     @IBAction func btnRegistrar(_ sender: UIButton){
